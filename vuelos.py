@@ -12,10 +12,13 @@ class vuelos(object):
         self.origen=o
         self.destino=d
         self.lista_pas=[]
-        self.list_trip=[]
+        self.list<_trip=[]
 
     def lista_pasajeros(self):
-        vuelo = {'listado_pasajeros': []}
+        d = { 'vuelo':[]}
+
+        for a in self.
+
 
 
 
