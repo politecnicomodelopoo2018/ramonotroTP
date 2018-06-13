@@ -9,12 +9,12 @@ class pasajero(persona):
         self.vip=v
         self.necesidades=nec
 
-    def nuevo_dic(self):
-        pasajero = {'nombre': self.nombre
-                    'apellido': self.apellido
-                    'fecha de nac': self.fecha_nac
-                    'dni': self.dni
-                    'vip': self.vip
+    def dic_pasajero(self):
+        pasajero = {'nombre': self.nombre,
+                    'apellido': self.apellido,
+                    'fecha de nac': self.fecha_nac,
+                    'dni': self.dni,
+                    'vip': self.vip,
                     'necesidades': self.necesidades
                     }
         return pasajero
