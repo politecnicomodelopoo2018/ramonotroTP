@@ -22,7 +22,7 @@ class vuelos(object):
 
     def caca(self):
         for a in self.lista_pas:
-            fechula = a.lista_pas[]
+            fechula = a.lista_pas[]9
 
 
 
