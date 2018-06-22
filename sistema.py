@@ -1,4 +1,6 @@
-
+import json
+from avion import avion
+from vuelos import vuelos
 
 class sistema(object):
     diccionario = {'listado_pasajeros': []}
@@ -27,3 +29,6 @@ class sistema(object):
 
     def ej2(self):
         for a in self.lista_vuelos:
+            self.la_biblia['ej 2'].append(a.ej_2())
+
+

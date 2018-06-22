@@ -20,12 +20,30 @@ class vuelos(object):
         for a in self.lista_pas:
             d['vuelo'['pasajeros']].append(a.dic_pasajero())
 
-    def caca(self):
+    def ej_2(self):
+
+        menor = self.lista_pas[0]
+
         for a in self.lista_pas:
-            fechula = a.lista_pas[]9
+            if a.getfecha < menor.getfecha:
+                menor = a
 
+        pas_menor = {'Nombre': menor.nombre,
+                     'Apellido': menor.apellido,
+                     'Fecha_nac': menor.fecha_nac,
+                     'Dni': menor.dni}
 
+        return pas_menor
 
+    def ej3(self):
+
+        if len(vuelos.lista_trip) < avion.cant_tripulantes_nec:
+
+    vuelo_trip_men = {'Avion': avion,
+                      'Fecha': fecha,
+                      'Hora': hora,
+                      'Origen': origen,
+                      'Destino': destino}
 
 
 
