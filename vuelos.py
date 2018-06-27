@@ -1,3 +1,5 @@
+from avion import avion
+
 class vuelos(object):
     avion=None
     fecha=None
@@ -13,6 +15,8 @@ class vuelos(object):
         self.destino=d
         self.lista_pas=[]
         self.lista_trip=[]
+        self.lista_idiomas=[]
+        self.lista_idiomas2=[]
 
     def lista_pasajeros(self):
         d = { 'vuelo':[{'pasajeros':[]}]}
@@ -37,13 +41,49 @@ class vuelos(object):
 
     def ej3(self):
 
-        if len(vuelos.lista_trip) < avion.cant_tripulantes_nec:
+        if len(self.lista_trip) < avion.cant_tripulantes_nec:
 
-    vuelo_trip_men = {'Avion': avion,
-                      'Fecha': fecha,
-                      'Hora': hora,
-                      'Origen': origen,
-                      'Destino': destino}
+            vuelo_trip_nec = {'Avion': avion,
+                              'Fecha': self.fecha,
+                              'Hora': self.hora,
+                              'Origen': self.origen,
+                              'Destino': self.destino}
+
+            return vuelo_trip_nec
+
+    def ej4(self):
+
+        for a in self.lista_trip
+            if a.modelos_avion != self.avion
+
+
+    def ej6(self):
+        for a in self.lista_pas:
+            if a.vip == 1 or a.necesidades != 'ninguna':
+
+                pasajero = {'nombre': a.nombre,
+                            'apellido': a.apellido,
+                            'fecha_nac': a.fecha_nac,
+                            'dni': a.dni,
+                            'vip': a.vip,
+                            'necesidades': a.necesidades}
+
+                return pasajero
+
+    def ej7(self):
+
+        for a in self.lista_idiomas:
+            for b in self.lista_idiomas[1:]:
+                if a == b:
+                    self.lista_idiomas.remove(b)
+
+
+
+
+
+
+
+
 
 
 

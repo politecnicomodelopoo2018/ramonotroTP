@@ -31,4 +31,40 @@ class sistema(object):
         for a in self.lista_vuelos:
             self.la_biblia['ej 2'].append(a.ej_2())
 
+    def ej3(self):
+        for a in self.lista_vuelos:
+            self.la_biblia['ej 3'].append(a.ej3())
+
+    def ej4(self):
+
+        for b in self.lista_vuelos:
+            if b.lista_trip.
+
+    def ej5(self):
+
+        for a in self.lista_vuelos:
+            for b in self.lista_vuelos[1:]:
+                if a != b:
+                    if a.fecha == b.fecha:
+                        for c in a.lista_trip:
+                            for d in self.lista_trip[1:]:
+                                if c.dni == d.dni:
+
+                                    tripulant = {'nombre': c.nombre,
+                                                 'apellido': c.apellido,
+                                                 'fecha_nac': c.fecha_nac,
+                                                 'dni': c.dni}
+
+                                    self.la_biblia['ej 5'].append(tripulant)
+
+                                    return tripulant
+
+
+
+    def ej6(self):
+        for a in self.lista_vuelos:
+            self.la_biblia['ej 6'].append(a.ej6())
+
+
+
 
