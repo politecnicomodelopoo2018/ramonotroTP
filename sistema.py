@@ -76,8 +76,8 @@ class sistema(object):
 
     def cargar(self):
         self.cargar_aviones()
-        self.cargar_vuelo_y_persona()
-        self.cargar_personas()
+        self.cargar_vuelo()
+        self.cargar_personitas()
     def cargar_aviones(self):
         with open('datos.json', 'r') as f:
             aux1 = f.read()
@@ -89,7 +89,7 @@ class sistema(object):
 
                 self.lista_aviones.append(unavion)
 
-    def cargar_vuelo_y_persona(self):
+    def cargar_vuelo(self):
         with open('datos.json', 'r') as f:
             aux1 = f.read()
 
@@ -105,44 +105,66 @@ class sistema(object):
 
                             self.lista_vuelos.append(unvuelo)
 
-    def cargar_personas(self):
+
+    def cargar_personitas(self):
+        self.pasajeros = []
+        self.tripulantes = []
         with open('datos.json', 'r') as f:
             aux1 = f.read()
 
             aux2 = json.loads(aux1)
-
-            lista_p=[]
-            lista_t=[]
-
             for a in aux2['Personas']:
-                for b in self.lista_vuelos:
-                        if a['tipo'] == 'Pasajero':
-                            for c in b.lista_pas:
-                                if a['dni'] == c:
+                if a['tipo'] == 'Pasajero':
+                    if 'solicitudesEspeciales' in a:
+                        UnPasaj = pasajero(a['nombre'], a['apellido'],
+                                            datetime.strptime(a['fechaNacimiento'], '%Y-%m-%d').date(), a['dni'],
+                                            a['vip'], a['solicitudesEspeciales'])
+                        self.pasajeros.append(UnPasaj)
+                    else:
+                        UnPasaj = pasajero(a['nombre'], a['apellido'],
+                                            datetime.strptime(a['fechaNacimiento'], '%Y-%m-%d').date(), a['dni'],
+                                            a['vip'],
+                                            'Ninguna')
+                        self.pasajeros.append(UnPasaj)
 
-                                    if 'solicitudesEspeciales' in a:
+                else:
 
-                                        pasa=pasajero(a['nombre'],a['apellido'],datetime.strptime(a['fechaNacimiento'], '%Y-%m-%d').date(),a['dni'],a['vip'],a['solicitudesEspeciales'])
-                                        lista_p.append(pasa)
-                                else :
-                                        pasa = pasajero(a['nombre'],a['apellido'],datetime.strptime(a['fechaNacimiento'], '%Y-%m-%d').date(),a['dni'],a['vip'], 'Ninguna')
-                                        lista_p.append(pasa)
-
-                        else :
-                            for d in b.lista_trip:
-                                if a['dni'] == d:
-
-                                            tripu=tripulante(a['nombre'],a['apellido'],datetime.strptime(a['fechaNacimiento'], '%Y-%m-%d').date(),a['dni'])
-                                            tripu.modelos_avion=a['avionesHabilitados']
-                                            tripu.idiomas=a['idiomas']
-                                            lista_t.append(tripu)
+                    if 'idiomas' in a:
+                        UnTripu = tripulante(a['nombre'], a['apellido'],
+                                              datetime.strptime(a['fechaNacimiento'], '%Y-%m-%d').date(), a['dni'])
+                        UnTripu.modelos_avion = a['avionesHabilitados']
+                        UnTripu.idiomas = a['idiomas']
+                        self.tripulantes.append(UnTripu)
+                    else:
+                        UnTripu = tripulante(a['nombre'], a['apellido'],
+                                              datetime.strptime(a['fechaNacimiento'], '%Y-%m-%d').date(), a['dni'])
+                        UnTripu.modelos_avion = a['avionesHabilitados']
+                        UnTripu.idiomas = ''
 
 
-                        b.lista_trip=lista_t
-                        b.lista_pas=lista_p
+                        self.tripulantes.append(UnTripu)
 
 
+        self.cargar_meter_personas(self.pasajeros, self.tripulantes)
 
+    def cargar_meter_personas(self, pasaj, tripu):
+        for a in self.lista_vuelos:
+            lista=[]
+            for b in a.lista_pas:
+                for c in pasaj:
+                    if b == c.dni:
+                        lista.append(c)
+
+            a.lista_pasajeros=lista
+
+        for a in self.lista_vuelos:
+            lista=[]
+            for b in a.lista_trip:
+                for c in tripu:
+                    if b == c.dni:
+                        lista.append(c)
+
+            a.lista_trip=lista
 
 
 

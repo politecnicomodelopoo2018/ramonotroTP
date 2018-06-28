@@ -8,5 +8,5 @@ for a in S.lista_vuelos:
     print(a.avion.modelo)
     print('--')
     for b in a.lista_trip:
-        print(b)
+        print(b.dni)
     print('--')
