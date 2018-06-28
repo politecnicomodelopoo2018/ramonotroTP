@@ -1,6 +1,7 @@
 import json
 from avion import avion
 from vuelos import vuelos
+from datetime import datetime
 
 class sistema(object):
     diccionario = {'listado_pasajeros': []}
@@ -18,6 +19,7 @@ class sistema(object):
 
     def __init__(self):
         self.lista_vuelos=[]
+        self.lista_aviones=[]
 
 
     def agregar_vuelos(self,v):
@@ -69,6 +71,33 @@ class sistema(object):
     def ej7(self):
         for a in self.lista_vuelos:
             self.la_biblia['ej 7'].append(a.ej7())
+
+    def cargar_aviones(self):
+        with open('datos.json', 'r') as f:
+            aux1 = f.read()
+
+            aux2 = json.loads(aux1)
+
+            for a in aux2['Aviones']:
+                unavion = avion(a['codigoUnico'],a['cantidadDePasajerosMaxima'],a['cantidadDeTripulaciónNecesaria'])
+
+                self.lista_aviones.append(unavion)
+
+    def cargar_vuelo(self):
+        with open('datos.json', 'r') as f:
+            aux1 = f.read()
+
+            aux2 = json.loads(aux1)
+
+            for a in aux2['Vuelos']:
+                for b in aux2['Personas']:
+                    for c in self.lista_aviones:
+                        if c.modelo == a['avion']:
+                            unvuelo=vuelos(c,datetime.strptime(a['fecha'], '%Y-%m-%d').date(),a['hora'],a['origen'],a['destino'])
+                            for d in a['pasajeros']
+                            if b['dni'] == a['']
+
+
 
 
 
