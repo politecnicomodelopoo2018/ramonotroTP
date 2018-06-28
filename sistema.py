@@ -2,7 +2,8 @@ import json
 from avion import avion
 from vuelos import vuelos
 from datetime import datetime
-
+from pasajero import pasajero
+from tripulante import tripulante
 class sistema(object):
     diccionario = {'listado_pasajeros': []}
 
@@ -72,6 +73,9 @@ class sistema(object):
         for a in self.lista_vuelos:
             self.la_biblia['ej 7'].append(a.ej7())
 
+    def cargar(self):
+        self.cargar_aviones()
+        self.cargar_vuelo_y_persona()
     def cargar_aviones(self):
         with open('datos.json', 'r') as f:
             aux1 = f.read()
@@ -83,7 +87,7 @@ class sistema(object):
 
                 self.lista_aviones.append(unavion)
 
-    def cargar_vuelo(self):
+    def cargar_vuelo_y_persona(self):
         with open('datos.json', 'r') as f:
             aux1 = f.read()
 
@@ -94,8 +98,24 @@ class sistema(object):
                     for c in self.lista_aviones:
                         if c.modelo == a['avion']:
                             unvuelo=vuelos(c,datetime.strptime(a['fecha'], '%Y-%m-%d').date(),a['hora'],a['origen'],a['destino'])
-                            for d in a['pasajeros']
-                            if b['dni'] == a['']
+                            for d in a['pasajeros']:
+                                if b['dni'] == d:
+                                        if 'solicitudesEspeciales' in b:
+                                            pasa=pasajero(b['nombre'],b['apellido'],datetime.strptime(b['fechaNacimiento'], '%Y-%m-%d').date(),
+                                                      b['dni'],b['vip'],b['solicitudesEspeciales'])
+
+                                        else :
+                                            pasa = pasajero(b['nombre'], b['apellido'],datetime.strptime(b['fechaNacimiento'], '%Y-%m-%d').date(),b['dni'], b['vip'], 'Ninguna')
+
+                                        unvuelo.lista_pasajeros().append(pasa)
+                            for e in a['tripulacion']:
+                                if b['dni'] == e:
+                                        tripu=tripulante(b['nombre'],b['apellido'],datetime.strptime(b['fechaNacimiento'], '%Y-%m-%d').date(),
+                                                      b['dni'])
+                                        tripu.modelos_avion=b['avionesHabilitados']
+                                        tripu.idiomas=b['idiomas']
+                                        unvuelo.lista_trip().append(tripu)
+
 
 
 
