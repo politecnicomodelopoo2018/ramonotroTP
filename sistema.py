@@ -23,6 +23,7 @@ class sistema(object):
         self.lista_aviones=[]
 
 
+
     def agregar_vuelos(self,v):
         self.lista_vuelos.append(v)
 
@@ -76,6 +77,7 @@ class sistema(object):
     def cargar(self):
         self.cargar_aviones()
         self.cargar_vuelo_y_persona()
+        self.cargar_personas()
     def cargar_aviones(self):
         with open('datos.json', 'r') as f:
             aux1 = f.read()
@@ -94,27 +96,51 @@ class sistema(object):
             aux2 = json.loads(aux1)
 
             for a in aux2['Vuelos']:
-                for b in aux2['Personas']:
+
                     for c in self.lista_aviones:
                         if c.modelo == a['avion']:
                             unvuelo=vuelos(c,datetime.strptime(a['fecha'], '%Y-%m-%d').date(),a['hora'],a['origen'],a['destino'])
-                            for d in a['pasajeros']:
-                                if b['dni'] == d:
-                                        if 'solicitudesEspeciales' in b:
-                                            pasa=pasajero(b['nombre'],b['apellido'],datetime.strptime(b['fechaNacimiento'], '%Y-%m-%d').date(),
-                                                      b['dni'],b['vip'],b['solicitudesEspeciales'])
+                            unvuelo.lista_pas=a['pasajeros']
+                            unvuelo.lista_trip=a['tripulacion']
 
-                                        else :
-                                            pasa = pasajero(b['nombre'], b['apellido'],datetime.strptime(b['fechaNacimiento'], '%Y-%m-%d').date(),b['dni'], b['vip'], 'Ninguna')
+                            self.lista_vuelos.append(unvuelo)
 
-                                        unvuelo.lista_pasajeros().append(pasa)
-                            for e in a['tripulacion']:
-                                if b['dni'] == e:
-                                        tripu=tripulante(b['nombre'],b['apellido'],datetime.strptime(b['fechaNacimiento'], '%Y-%m-%d').date(),
-                                                      b['dni'])
-                                        tripu.modelos_avion=b['avionesHabilitados']
-                                        tripu.idiomas=b['idiomas']
-                                        unvuelo.lista_trip().append(tripu)
+    def cargar_personas(self):
+        with open('datos.json', 'r') as f:
+            aux1 = f.read()
+
+            aux2 = json.loads(aux1)
+
+            lista_p=[]
+            lista_t=[]
+
+            for a in aux2['Personas']:
+                for b in self.lista_vuelos:
+                        if a['tipo'] == 'Pasajero':
+                            for c in b.lista_pas:
+                                if a['dni'] == c:
+
+                                    if 'solicitudesEspeciales' in a:
+
+                                        pasa=pasajero(a['nombre'],a['apellido'],datetime.strptime(a['fechaNacimiento'], '%Y-%m-%d').date(),a['dni'],a['vip'],a['solicitudesEspeciales'])
+                                        lista_p.append(pasa)
+                                else :
+                                        pasa = pasajero(a['nombre'],a['apellido'],datetime.strptime(a['fechaNacimiento'], '%Y-%m-%d').date(),a['dni'],a['vip'], 'Ninguna')
+                                        lista_p.append(pasa)
+
+                        else :
+                            for d in b.lista_trip:
+                                if a['dni'] == d:
+
+                                            tripu=tripulante(a['nombre'],a['apellido'],datetime.strptime(a['fechaNacimiento'], '%Y-%m-%d').date(),a['dni'])
+                                            tripu.modelos_avion=a['avionesHabilitados']
+                                            tripu.idiomas=a['idiomas']
+                                            lista_t.append(tripu)
+
+
+                        b.lista_trip=lista_t
+                        b.lista_pas=lista_p
+
 
 
 

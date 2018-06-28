@@ -5,7 +5,7 @@ class pasajero(persona):
     necesidades=None
 
     def __init__(self,n,a,f,d,v,nec):
-        persona.__init__(n,a,f,d)
+        persona.__init__(self,n,a,f,d)
         self.vip=v
         self.necesidades=nec
 

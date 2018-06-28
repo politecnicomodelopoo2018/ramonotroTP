@@ -3,7 +3,7 @@ from personaTP import persona
 class tripulante(persona):
 
     def __init__(self,n,a,f,d):
-        persona.__init__(n,a,f,d)
+        persona.__init__(self,n,a,f,d)
         self.modelos_avion=[]
         self.idiomas=[]
 
