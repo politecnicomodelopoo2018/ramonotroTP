@@ -148,8 +148,10 @@ class sistema(object):
         self.cargar_meter_personas(self.pasajeros, self.tripulantes)
 
     def cargar_meter_personas(self, pasaj, tripu):
+
         for a in self.lista_vuelos:
             lista=[]
+
             for b in a.lista_pas:
                 for c in pasaj:
                     if b == c.dni:
