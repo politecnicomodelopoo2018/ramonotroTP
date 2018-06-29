@@ -19,5 +19,3 @@ class pasajero(persona):
                     }
         return pasajero
 
-    def getfecha(self):
-        return self.fecha_nac

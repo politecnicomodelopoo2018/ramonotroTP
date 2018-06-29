@@ -52,7 +52,7 @@ class sistema(object):
                 if a != b:
                     if a.fecha == b.fecha:
                         for c in a.lista_trip:
-                            for d in a.lista_trip[1:]:
+                            for d in b.lista_trip:
                                 if c.dni == d.dni:
 
                                     tripulant = {'nombre': c.nombre,
@@ -62,7 +62,7 @@ class sistema(object):
 
                                     self.la_biblia['ej 5'].append(tripulant)
 
-                                    return tripulant
+        return tripulant
 
 
 
@@ -155,7 +155,7 @@ class sistema(object):
                     if b == c.dni:
                         lista.append(c)
 
-            a.lista_pasajeros=lista
+            a.lista_pas=lista
 
         for a in self.lista_vuelos:
             lista=[]
